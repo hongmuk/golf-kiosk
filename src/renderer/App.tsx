@@ -12,6 +12,8 @@ import PrintingPage from './pages/PrintingPage';
 import PaymentPage from './pages/PaymentPage';
 import AdminLayout from './pages/admin/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminOrders from './pages/admin/AdminOrders';
+import AdminPricing from './pages/admin/AdminPricing';
 
 function AppContent() {
   const setSettings = useAppStore((s) => s.setSettings);
@@ -30,6 +32,8 @@ function AppContent() {
       <Route path="/complete" element={<CompletePage />} />
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<AdminDashboard />} />
+        <Route path="orders" element={<AdminOrders />} />
+        <Route path="pricing" element={<AdminPricing />} />
       </Route>
     </Routes>
   );
