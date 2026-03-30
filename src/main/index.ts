@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, globalShortcut } from 'electron';
 import path from 'path';
 import { getDb, closeDb } from './database/connection';
 import { runMigrations } from './database/migrations';
@@ -12,15 +12,14 @@ import { registerCutterIpc } from './ipc/cutter';
 import { getPrinterStatus } from './hardware/printer';
 import { getCutterStatus } from './hardware/cutter';
 
+const isDev = process.env.NODE_ENV === 'development';
 let mainWindow: BrowserWindow | null = null;
 
 function createWindow() {
-  // Initialize database
   const db = getDb();
   runMigrations(db);
   seedDefaults(db);
 
-  // Register IPC handlers
   registerDbIpc();
   registerSettingsIpc();
   registerUsbIpc();
@@ -47,15 +46,30 @@ function createWindow() {
       contextIsolation: true,
       nodeIntegration: false,
     },
-    frame: false,
-    fullscreen: false,
+    frame: isDev,
+    fullscreen: !isDev,
+    kiosk: !isDev,
+    autoHideMenuBar: true,
   });
 
-  if (process.env.NODE_ENV === 'development') {
+  if (isDev) {
     mainWindow.loadURL('http://localhost:5173');
     mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
+  }
+
+  // Kiosk mode: prevent window close in production
+  if (!isDev) {
+    mainWindow.on('close', (e) => {
+      e.preventDefault();
+    });
+
+    // Admin shutdown shortcut: Ctrl+Shift+Q
+    globalShortcut.register('Ctrl+Shift+Q', () => {
+      mainWindow?.destroy();
+      app.quit();
+    });
   }
 
   mainWindow.on('closed', () => {
@@ -63,7 +77,17 @@ function createWindow() {
   });
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createWindow();
+
+  // Auto-start at Windows boot in production
+  if (!isDev) {
+    app.setLoginItemSettings({
+      openAtLogin: true,
+      path: app.getPath('exe'),
+    });
+  }
+});
 
 app.on('window-all-closed', () => {
   closeDb();
