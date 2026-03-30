@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TextTool from './TextTool';
 import ImageTool from './ImageTool';
+import CharacterTool from './CharacterTool';
 
 type ToolTab = 'text' | 'image' | 'character';
 
@@ -54,11 +55,7 @@ export default function ToolPanel() {
       <div style={{ flex: 1, overflowY: 'auto' }}>
         {activeTab === 'text' && <TextTool />}
         {activeTab === 'image' && <ImageTool />}
-        {activeTab === 'character' && (
-          <div style={{ padding: 16, textAlign: 'center', color: '#9ca3af' }}>
-            <p style={{ fontSize: 14 }}>캐릭터 도구 (다음 단계)</p>
-          </div>
-        )}
+        {activeTab === 'character' && <CharacterTool />}
       </div>
     </div>
   );
