@@ -10,10 +10,8 @@ import PreviewPage from './pages/PreviewPage';
 import CompletePage from './pages/CompletePage';
 import PrintingPage from './pages/PrintingPage';
 import PaymentPage from './pages/PaymentPage';
-
-function Placeholder({ name }: { name: string }) {
-  return <div style={{ fontSize: 36, textAlign: 'center', marginTop: 200 }}>{name}</div>;
-}
+import AdminLayout from './pages/admin/AdminLayout';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 function AppContent() {
   const setSettings = useAppStore((s) => s.setSettings);
@@ -30,7 +28,9 @@ function AppContent() {
       <Route path="/payment" element={<PaymentPage />} />
       <Route path="/printing" element={<PrintingPage />} />
       <Route path="/complete" element={<CompletePage />} />
-      <Route path="/admin/*" element={<Placeholder name="관리자" />} />
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<AdminDashboard />} />
+      </Route>
     </Routes>
   );
 }
