@@ -5,6 +5,7 @@ import { runMigrations } from './database/migrations';
 import { seedDefaults } from './database/seed';
 import { registerDbIpc } from './ipc/db';
 import { registerSettingsIpc } from './ipc/settings';
+import { registerUsbIpc } from './ipc/usb';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -17,6 +18,7 @@ function createWindow() {
   // Register IPC handlers
   registerDbIpc();
   registerSettingsIpc();
+  registerUsbIpc();
 
   mainWindow = new BrowserWindow({
     width: 1920,
