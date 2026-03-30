@@ -4,6 +4,7 @@ import { useAppStore } from './stores/appStore';
 import { useIpc } from './hooks/useIpc';
 import { useIdleTimer } from './hooks/useIdleTimer';
 import HomePage from './pages/HomePage';
+import ProductSelectPage from './pages/ProductSelectPage';
 
 function Placeholder({ name }: { name: string }) {
   return <div style={{ fontSize: 36, textAlign: 'center', marginTop: 200 }}>{name}</div>;
@@ -18,7 +19,7 @@ function AppContent() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/product-select" element={<Placeholder name="상품 선택" />} />
+      <Route path="/product-select" element={<ProductSelectPage />} />
       <Route path="/editor" element={<Placeholder name="디자인 편집기" />} />
       <Route path="/preview" element={<Placeholder name="미리보기" />} />
       <Route path="/payment" element={<Placeholder name="결제" />} />
