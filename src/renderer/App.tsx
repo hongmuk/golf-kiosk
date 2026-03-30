@@ -6,6 +6,8 @@ import { useIdleTimer } from './hooks/useIdleTimer';
 import HomePage from './pages/HomePage';
 import ProductSelectPage from './pages/ProductSelectPage';
 import DesignEditorPage from './pages/DesignEditorPage';
+import PreviewPage from './pages/PreviewPage';
+import CompletePage from './pages/CompletePage';
 
 function Placeholder({ name }: { name: string }) {
   return <div style={{ fontSize: 36, textAlign: 'center', marginTop: 200 }}>{name}</div>;
@@ -22,10 +24,10 @@ function AppContent() {
       <Route path="/" element={<HomePage />} />
       <Route path="/product-select" element={<ProductSelectPage />} />
       <Route path="/editor" element={<DesignEditorPage />} />
-      <Route path="/preview" element={<Placeholder name="미리보기" />} />
+      <Route path="/preview" element={<PreviewPage />} />
       <Route path="/payment" element={<Placeholder name="결제" />} />
       <Route path="/printing" element={<Placeholder name="인쇄 중" />} />
-      <Route path="/complete" element={<Placeholder name="완료" />} />
+      <Route path="/complete" element={<CompletePage />} />
       <Route path="/admin/*" element={<Placeholder name="관리자" />} />
     </Routes>
   );
