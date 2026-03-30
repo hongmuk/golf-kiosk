@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { useAppStore } from './stores/appStore';
 import { useIpc } from './hooks/useIpc';
+import { useIdleTimer } from './hooks/useIdleTimer';
+import HomePage from './pages/HomePage';
 
 function Placeholder({ name }: { name: string }) {
   return <div style={{ fontSize: 36, textAlign: 'center', marginTop: 200 }}>{name}</div>;
@@ -11,10 +13,11 @@ function AppContent() {
   const setSettings = useAppStore((s) => s.setSettings);
   const api = useIpc();
   useEffect(() => { api.getAllSettings().then(setSettings); }, []);
+  useIdleTimer();
 
   return (
     <Routes>
-      <Route path="/" element={<Placeholder name="홈 화면" />} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/product-select" element={<Placeholder name="상품 선택" />} />
       <Route path="/editor" element={<Placeholder name="디자인 편집기" />} />
       <Route path="/preview" element={<Placeholder name="미리보기" />} />
