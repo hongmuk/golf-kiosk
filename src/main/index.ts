@@ -1,9 +1,17 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
+import { getDb, closeDb } from './database/connection';
+import { runMigrations } from './database/migrations';
+import { seedDefaults } from './database/seed';
 
 let mainWindow: BrowserWindow | null = null;
 
 function createWindow() {
+  // Initialize database
+  const db = getDb();
+  runMigrations(db);
+  seedDefaults(db);
+
   mainWindow = new BrowserWindow({
     width: 1920,
     height: 1080,
@@ -31,5 +39,6 @@ function createWindow() {
 app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
+  closeDb();
   app.quit();
 });
