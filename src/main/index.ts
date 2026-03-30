@@ -7,6 +7,7 @@ import { registerDbIpc } from './ipc/db';
 import { registerSettingsIpc } from './ipc/settings';
 import { registerUsbIpc } from './ipc/usb';
 import { registerPrinterIpc } from './ipc/printer';
+import { registerPaymentIpc } from './ipc/payment';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -21,6 +22,7 @@ function createWindow() {
   registerSettingsIpc();
   registerUsbIpc();
   registerPrinterIpc();
+  registerPaymentIpc();
 
   mainWindow = new BrowserWindow({
     width: 1920,
