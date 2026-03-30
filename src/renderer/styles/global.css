@@ -2,10 +2,20 @@
 html, body, #root {
   width: 1920px; height: 1080px; overflow: hidden;
   font-family: 'Nanum Gothic', 'Malgun Gothic', sans-serif;
-  background: #1a1a2e; color: #ffffff; user-select: none; cursor: none;
+  background: #1a1a2e; color: #ffffff; user-select: none;
 }
-button { cursor: none; border: none; outline: none; font-family: inherit; touch-action: manipulation; }
+/* Show cursor in browser, hide in Electron */
+html.electron-app, html.electron-app button { cursor: none; }
+button { border: none; outline: none; font-family: inherit; touch-action: manipulation; cursor: pointer; }
 input, textarea { font-family: inherit; outline: none; }
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #16213e; }
 ::-webkit-scrollbar-thumb { background: #6c63ff; border-radius: 4px; }
+
+/* Scale down for web demo: fit viewport while maintaining aspect ratio */
+@media screen and (max-width: 1920px) {
+  html, body, #root {
+    transform-origin: top left;
+    transform: scale(var(--kiosk-scale, 1));
+  }
+}

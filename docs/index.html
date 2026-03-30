@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>골프공 인쇄 키오스크</title>
+  <script>
+    // Auto-scale 1920x1080 kiosk UI to fit browser viewport
+    function updateScale() {
+      var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+      document.documentElement.style.setProperty('--kiosk-scale', s);
+    }
+    window.addEventListener('resize', updateScale);
+    updateScale();
+  </script>
+  <script type="module" crossorigin src="/golf-kiosk/assets/index-mSvyFMe0.js"></script>
+  <link rel="stylesheet" crossorigin href="/golf-kiosk/assets/index-DiKD28h0.css">
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>

@@ -4,7 +4,7 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  base: './',
+  base: process.env.GITHUB_PAGES ? '/golf-kiosk/' : './',
   root: 'src/renderer',
   build: {
     outDir: '../../dist/renderer',
