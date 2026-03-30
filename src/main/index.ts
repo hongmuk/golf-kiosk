@@ -3,6 +3,8 @@ import path from 'path';
 import { getDb, closeDb } from './database/connection';
 import { runMigrations } from './database/migrations';
 import { seedDefaults } from './database/seed';
+import { registerDbIpc } from './ipc/db';
+import { registerSettingsIpc } from './ipc/settings';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -11,6 +13,10 @@ function createWindow() {
   const db = getDb();
   runMigrations(db);
   seedDefaults(db);
+
+  // Register IPC handlers
+  registerDbIpc();
+  registerSettingsIpc();
 
   mainWindow = new BrowserWindow({
     width: 1920,
