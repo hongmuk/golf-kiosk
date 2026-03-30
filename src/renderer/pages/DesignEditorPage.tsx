@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import TopBar from '../components/common/TopBar';
 import GolfBallCanvas from '../components/editor/GolfBallCanvas';
 import LayerPanel from '../components/editor/LayerPanel';
+import ToolPanel from '../components/editor/ToolPanel';
 import { useDesignStore } from '../stores/designStore';
 
 export default function DesignEditorPage() {
@@ -70,15 +71,8 @@ export default function DesignEditorPage() {
       </TopBar>
 
       <div style={{ flex: 1, display: 'flex' }}>
-        {/* Left: Tool Panel placeholder */}
-        <div style={{
-          width: 280,
-          background: '#f9fafb',
-          borderRight: '1px solid #e5e7eb',
-          padding: 16,
-        }}>
-          <p style={{ fontSize: 14, color: '#9ca3af' }}>도구 패널 (다음 단계)</p>
-        </div>
+        {/* Left: Tool Panel */}
+        <ToolPanel />
 
         {/* Center: Canvas */}
         <div style={{
