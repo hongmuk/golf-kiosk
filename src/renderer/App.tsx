@@ -14,6 +14,9 @@ import AdminLayout from './pages/admin/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminOrders from './pages/admin/AdminOrders';
 import AdminPricing from './pages/admin/AdminPricing';
+import AdminHardware from './pages/admin/AdminHardware';
+import AdminContent from './pages/admin/AdminContent';
+import AdminSettings from './pages/admin/AdminSettings';
 
 function AppContent() {
   const setSettings = useAppStore((s) => s.setSettings);
@@ -34,6 +37,9 @@ function AppContent() {
         <Route index element={<AdminDashboard />} />
         <Route path="orders" element={<AdminOrders />} />
         <Route path="pricing" element={<AdminPricing />} />
+        <Route path="hardware" element={<AdminHardware />} />
+        <Route path="content" element={<AdminContent />} />
+        <Route path="settings" element={<AdminSettings />} />
       </Route>
     </Routes>
   );
