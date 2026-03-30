@@ -5,6 +5,7 @@ import { useIpc } from './hooks/useIpc';
 import { useIdleTimer } from './hooks/useIdleTimer';
 import HomePage from './pages/HomePage';
 import ProductSelectPage from './pages/ProductSelectPage';
+import DesignEditorPage from './pages/DesignEditorPage';
 
 function Placeholder({ name }: { name: string }) {
   return <div style={{ fontSize: 36, textAlign: 'center', marginTop: 200 }}>{name}</div>;
@@ -20,7 +21,7 @@ function AppContent() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/product-select" element={<ProductSelectPage />} />
-      <Route path="/editor" element={<Placeholder name="디자인 편집기" />} />
+      <Route path="/editor" element={<DesignEditorPage />} />
       <Route path="/preview" element={<Placeholder name="미리보기" />} />
       <Route path="/payment" element={<Placeholder name="결제" />} />
       <Route path="/printing" element={<Placeholder name="인쇄 중" />} />
