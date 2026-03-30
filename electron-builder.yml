@@ -1,0 +1,13 @@
+appId: com.golfkiosk.app
+productName: 골프공인쇄키오스크
+directories:
+  output: release
+  buildResources: resources
+files:
+  - dist/**/*
+  - node_modules/**/*
+win:
+  target: nsis
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
