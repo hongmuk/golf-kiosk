@@ -6,6 +6,7 @@ import { seedDefaults } from './database/seed';
 import { registerDbIpc } from './ipc/db';
 import { registerSettingsIpc } from './ipc/settings';
 import { registerUsbIpc } from './ipc/usb';
+import { registerPrinterIpc } from './ipc/printer';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -19,6 +20,7 @@ function createWindow() {
   registerDbIpc();
   registerSettingsIpc();
   registerUsbIpc();
+  registerPrinterIpc();
 
   mainWindow = new BrowserWindow({
     width: 1920,
