@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import { getDb, closeDb } from './database/connection';
 import { runMigrations } from './database/migrations';
@@ -8,6 +8,9 @@ import { registerSettingsIpc } from './ipc/settings';
 import { registerUsbIpc } from './ipc/usb';
 import { registerPrinterIpc } from './ipc/printer';
 import { registerPaymentIpc } from './ipc/payment';
+import { registerCutterIpc } from './ipc/cutter';
+import { getPrinterStatus } from './hardware/printer';
+import { getCutterStatus } from './hardware/cutter';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -23,6 +26,18 @@ function createWindow() {
   registerUsbIpc();
   registerPrinterIpc();
   registerPaymentIpc();
+  registerCutterIpc();
+
+  ipcMain.handle('hardware:status', () => {
+    const db = getDb();
+    const printerName = (db.prepare('SELECT value FROM settings WHERE key = ?').get('printer_name') as any)?.value || '';
+    const cutterPort = (db.prepare('SELECT value FROM settings WHERE key = ?').get('cutter_port') as any)?.value || '';
+    return {
+      printer: getPrinterStatus(printerName).connected,
+      payment: true,
+      cutter: getCutterStatus(cutterPort).connected,
+    };
+  });
 
   mainWindow = new BrowserWindow({
     width: 1920,
